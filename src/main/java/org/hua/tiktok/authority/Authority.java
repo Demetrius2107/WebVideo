@@ -23,6 +23,6 @@ public @interface Authority {
      * 具体执行校验类
      * @return
      */
-    Class verify() default DefaultAuthorityVerfiy.class;
+    Class verify() default DefaultAuthorityVerify.class;
 
 }
