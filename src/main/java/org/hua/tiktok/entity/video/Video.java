@@ -3,6 +3,7 @@ package org.hua.tiktok.entity.video;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hua.tiktok.config.QiNiuConfig;
 import org.hua.tiktok.entity.BaseEntity;
 import org.hua.tiktok.entity.vo.UserVO;
 import org.springframework.util.ObjectUtils;

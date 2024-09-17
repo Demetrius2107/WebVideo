@@ -1,8 +1,10 @@
 package org.hua.tiktok.entity.vo;
 
 import lombok.Data;
+import org.hua.tiktok.config.QiNiuConfig;
 import org.springframework.util.ObjectUtils;
 
+import javax.print.DocFlavor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -44,12 +46,16 @@ public class VideoVO implements Serializable {
 
     private Date gmtCreated;
 
-    public List<String> buildLabel(){
-        if(ObjectUtils.isEmpty(this.labelNames)) return Collections.EMPTY_LIST;
+    public List<String> buildLabel() {
+        if (ObjectUtils.isEmpty(this.labelNames)) return Collections.EMPTY_LIST;
         return Arrays.asList(this.labelNames.split(","));
     }
 
-    public String getVideoUrl(){
+    public String getVideoUrl() {
+        return QiNiuConfig.CNAME + "/" + this.url;
+    }
 
+    public String getCoverUrl() {
+        return QiNiuConfig.CNAME + "/" + this.cover;
     }
 }
