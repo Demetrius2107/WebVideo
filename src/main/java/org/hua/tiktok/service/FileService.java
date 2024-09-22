@@ -21,5 +21,5 @@ public interface FileService extends IService<File> {
      * @param fieldId 文件ID
      * @return
      */
-    File getFileTrustUrl(Long fieldId);
+    File getFileTrustUrl(Long fileId);
 }

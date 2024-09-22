@@ -1,23 +1,40 @@
 package org.hua.tiktok.service.video.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.hua.tiktok.entity.File;
+import org.hua.tiktok.entity.user.User;
 import org.hua.tiktok.entity.video.Video;
 import org.hua.tiktok.entity.video.VideoShare;
 import org.hua.tiktok.entity.vo.BasePage;
 import org.hua.tiktok.entity.vo.HotVideo;
+import org.hua.tiktok.exception.BaseException;
 import org.hua.tiktok.mapper.video.VideoMapper;
+import org.hua.tiktok.service.FileService;
+import org.hua.tiktok.service.user.UserService;
 import org.hua.tiktok.service.video.VideoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements VideoService {
+
+    @Autowired
+    private FileService fileService;
+
+    @Autowired
+    private UserService userService;
     @Override
-    public Video getVideoById(Long id, Long userId) {
+    public Video getVideoById(Long videoId, Long userId) {
+        final Video video = this.getOne(new LambdaQueryWrapper<Video>().eq(Video::getId, videoId));
+        if (video == null) throw new BaseException("指定视频不存在");
+
         return null;
     }
 
@@ -134,5 +151,20 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
     @Override
     public void violations(Long id) {
 
+    }
+
+    public void setUserVOAndUrl(Collection<Video> videos) {
+        if (!ObjectUtils.isEmpty(videos)) {
+            Set<Long> userIds = new HashSet<>();
+            final ArrayList<Long> fileIds = new ArrayList<>();
+            for (Video video : videos) {
+                userIds.add(video.getUserId());
+                fileIds.add(video.getUrl());
+                fileIds.add(video.getCover());
+            }
+            final Map<Long, File> fileMap  = fileService.listByIds(fileIds).stream().collect(Collectors.toMap(File::getId, Function.identity()));
+            final Map<Long, User> userMap = userSer
+
+        }
     }
 }
