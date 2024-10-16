@@ -4,9 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.hua.tiktok.entity.user.User;
 import org.hua.tiktok.entity.video.Type;
-import org.hua.tiktok.entity.vo.BasePage;
-import org.hua.tiktok.entity.vo.RegisterVO;
-import org.hua.tiktok.entity.vo.UserVO;
+import org.hua.tiktok.entity.vo.*;
 
 import java.util.Collection;
 import java.util.List;
@@ -83,6 +81,50 @@ public interface UserService extends IService<User> {
      */
     boolean follows(Long followsUserId);
 
+    /**
+     * 修改用户模型
+     *
+     * @param userModel
+     */
+    void updateUserModel(UserModel userModel);
 
+    /**
+     * 找回密码
+     *
+     * @param findPWVO
+     * @return
+     */
+    Boolean findPassword(FindPWVO findPWVO);
+
+    /**
+     * 修改用户资料
+     *
+     * @param user
+     */
+    void updateUser(UpdateUserVO user);
+
+    /**
+     * 获取用户搜索记录
+     *
+     * @param userId
+     * @return 搜索的值
+     */
+    Collection<String> searchHistory(Long userId);
+
+    /**
+     * 添加搜索记录
+     *
+     * @param userId
+     * @param search
+     */
+    void addSearchHistory(Long userId, String search);
+
+    /**
+     * 删除搜索记录
+     * @param userId
+     */
+    void deleteSearchHistory(Long userId);
+
+    Collection<Type> listNoSubscribeType(Long aLong);
 
 }
